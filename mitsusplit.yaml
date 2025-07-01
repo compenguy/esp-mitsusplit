@@ -1,0 +1,54 @@
+substitutions:
+  name: "mitsusplit-1"
+  friendly_name: "Office MiniSplit"
+  remote_temp_sensor: "sensor.office_temperature" # the home assistant sensor offering remote temperature
+
+esphome:
+  name: ${name}
+  friendly_name: ${friendly_name}
+
+packages:
+  - !include common/wifi.yaml
+  - !include common/lilygo-t-rsc3.yaml
+  - !include common/mitsubishi-cn105.yaml
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: !secret api_key
+
+ota:
+  - platform: esphome
+    password: !secret ota_password
+
+captive_portal:
+    
+web_server:
+  port: 80
+
+time:
+  - platform: homeassistant
+    id: homeassistant_time
+
+text_sensor:
+  - platform: version
+    name: ESPHome Version
+  - platform: wifi_info
+    ip_address:
+      name: IP
+    ssid:
+      name: SSID
+    bssid:
+      name: BSSID
+
+sensor:
+  - platform: uptime
+    name: Uptime
+  - platform: wifi_signal
+    name: WiFi Signal
+    update_interval: 120s
+
+button:
+  - platform: restart
+    name: "Restart ${friendly_name}"
+

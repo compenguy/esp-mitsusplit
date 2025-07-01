@@ -1,0 +1,127 @@
+# https://github.com/echavet/MitsubishiCN105ESPHome
+
+logger:
+  level: INFO
+  logs:
+    EVT_SETS: INFO
+    WIFI: INFO
+    MQTT: INFO
+    WRITE_SETTINGS: INFO
+    SETTINGS: INFO
+    STATUS: INFO
+    CN105Climate: WARN
+    CN105: INFO
+    climate: WARN
+    sensor: WARN
+    chkSum: INFO
+    WRITE: WARN
+    READ: WARN
+    Header: INFO
+    Decoder: INFO
+    CONTROL_WANTED_SETTINGS: INFO
+# Swap the above settings with these debug settings for development or troubleshooting
+#  level: DEBUG
+#  logs:
+#    EVT_SETS : DEBUG
+#    WIFI : INFO
+#    MQTT : INFO
+#    WRITE_SETTINGS : DEBUG
+#    SETTINGS : DEBUG
+#    STATUS : INFO
+#    CN105Climate: WARN
+#    CN105: DEBUG
+#    climate: WARN
+#    sensor: WARN
+#    chkSum : INFO
+#    WRITE : WARN
+#    READ : WARN
+#    Header: INFO
+#    Decoder : DEBUG
+#    CONTROL_WANTED_SETTINGS: DEBUG
+
+sensor:
+  - platform: homeassistant
+    name: "Remote Temperature Sensor"
+    entity_id: ${remote_temp_sensor}
+    internal: false
+    disabled_by_default: true
+    device_class: temperature
+    state_class: measurement
+    unit_of_measurement: "°F"
+    filters:
+      - lambda: return (x - 32) * (5.0/9.0);
+      - clamp: # limit values to those accepted by Mitsubishi units
+          min_value: 1
+          max_value: 40
+          ignore_out_of_range: true
+      - throttle: 30s
+    on_value:
+      then:
+        - logger.log:
+            level: INFO
+            format: "Remote temperature received from HA: %.1f C"
+            args: [ 'x' ]
+        - lambda: 'id(heatpump).set_remote_temperature(x);'
+
+external_components:
+  - source: github://echavet/MitsubishiCN105ESPHome
+
+climate:
+  - platform: cn105
+    id: heatpump
+    name: "${friendly_name}"
+    icon: mdi:heat-pump
+    visual:
+      min_temperature: 10 # attn: units in C
+      max_temperature: 31
+      temperature_step:
+        target_temperature: 1
+        current_temperature: 0.5
+    # Fahrenheit compatibility mode - uses Mitsubishi's "custom" unit conversions, set to
+    # "true" for better support of Fahrenheit units in HomeAssistant
+    fahrenheit_compatibility: true
+    # Timeout and communication settings
+    remote_temperature_timeout: 30min
+    update_interval: 2s
+    debounce_delay: 100ms
+    # Various optional sensors, not all sensors are supported by all heatpumps
+    compressor_frequency_sensor:
+      name: Compressor Frequency
+      entity_category: diagnostic
+      disabled_by_default: true
+    outside_air_temperature_sensor:
+      name: Outside Air Temp
+      disabled_by_default: true
+    vertical_vane_select:
+      name: Vertical Vane
+      disabled_by_default: false
+    horizontal_vane_select:
+      name: Horizontal Vane
+      disabled_by_default: true
+    isee_sensor:
+      name: ISEE Sensor
+      disabled_by_default: true
+    stage_sensor:
+      name: Stage
+      # use_as_operating_fallback: false     # set to true if your unit doesn't provide activity indicator
+      entity_category: diagnostic
+      disabled_by_default: true
+    sub_mode_sensor:
+      name: Sub Mode
+      entity_category: diagnostic
+      disabled_by_default: true
+    auto_sub_mode_sensor:
+      name: Auto Sub Mode
+      entity_category: diagnostic
+      disabled_by_default: true
+    input_power_sensor:
+      name: Input Power
+      disabled_by_default: true
+    kwh_sensor:
+      name: Energy Usage
+      disabled_by_default: true
+    runtime_hours_sensor:
+      name: Runtime Hours
+      entity_category: diagnostic
+      disabled_by_default: true
+

@@ -1,0 +1,28 @@
+substitutions:
+  neopixel_pin: "GPIO04"
+  neopixel_model: "WS2812"
+  neopixel_order: "GRB"
+  neopixel_count: "1"
+  rs232_tx_pin: "GPIO00"
+  rs232_rx_pin: "GPIO01"
+  rs232_baud: "2400"
+
+esp32:
+  board: esp32-c3-devkitm-1
+  framework:
+    type: esp-idf
+
+light:
+  - platform: esp32_rmt_led_strip
+    rgb_order: ${neopixel_order}
+    chipset: ${neopixel_model}
+    pin: ${neopixel_pin}
+    num_leds: ${neopixel_count}
+    name: "Status LED"
+
+# https://github.com/echavet/MitsubishiCN105ESPHome
+uart:
+  id: heatpump_uart
+  tx_pin: ${rs232_tx_pin}
+  rx_pin: ${rs232_rx_pin}
+  baud_rate: ${rs232_baud}
