@@ -1,5 +1,9 @@
 # MitsuSplit - ESP32 Firmware System For Controlling Mitsubishi Minisplit Systems Built on ESPHome
 
+This project owes everything to:
+* The [ESPHome project](https://esphome.io/), a fantastic project making home automation projects using ESP microcontrollers trivially easy
+* The [MitsubishiCN105ESPHome component](https://github.com/echavet/MitsubishiCN105ESPHome) for ESPHome, where they've done amazing work implementing support for a range of Mitsubishi equipment for ESPHome
+
 ## Acquiring The Hardware
 
 * An ESPHome-compatible microcontroller, with a serial port
