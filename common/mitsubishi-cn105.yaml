@@ -19,6 +19,7 @@ logger:
     Header: INFO
     Decoder: INFO
     CONTROL_WANTED_SETTINGS: INFO
+
 # Swap the above settings with these debug settings for development or troubleshooting
 #  level: DEBUG
 #  logs:
@@ -62,6 +63,48 @@ sensor:
             format: "Remote temperature received from HA: %.1f C"
             args: [ 'x' ]
         - lambda: 'id(heatpump).set_remote_temperature(x);'
+  # The following ESPHome sensors will not be needed by most users, but can be helpful in diagnosing problems
+  # with UART connectivity. Only uncomment if you are currently troubleshooting or developing new functionality.
+  #- platform: template
+  #  name: "dg_uart_connected"
+  #  entity_category: DIAGNOSTIC
+  #  lambda: |-
+  #    return (bool) id(heatpump).isUARTConnected_;
+  #  update_interval: 30s
+  #- platform: template
+  #  name: "dg_complete_cycles"
+  #  entity_category: DIAGNOSTIC
+  #  accuracy_decimals: 0
+  #  lambda: |-
+  #    return (unsigned long) id(heatpump).nbCompleteCycles_;
+  #  update_interval: 60s
+  #- platform: template
+  #  name: "dg_total_cycles"
+  #  accuracy_decimals: 0
+  #  entity_category: DIAGNOSTIC
+  #  lambda: |-
+  #    return (unsigned long) id(heatpump).nbCycles_;
+  #  update_interval: 60s
+  #- platform: template
+  #  name: "dg_nb_hp_connections"
+  #  accuracy_decimals: 0
+  #  entity_category: DIAGNOSTIC
+  #  lambda: |-
+  #    return (unsigned int) id(heatpump).nbHeatpumpConnections_;
+  #  update_interval: 60s
+  #- platform: template
+  #  name: "dg_complete_cycles_percent"
+  #  unit_of_measurement: "%"
+  #  accuracy_decimals: 1
+  #  entity_category: DIAGNOSTIC
+  #  lambda: |-
+  #    unsigned long nbCompleteCycles = id(heatpump).nbCompleteCycles_;
+  #    unsigned long nbCycles = id(heatpump).nbCycles_;
+  #    if (nbCycles == 0) {
+  #      return 0.0;
+  #    }
+  #    return (float) nbCompleteCycles / nbCycles * 100.0;
+  #  update_interval: 60s
 
 external_components:
   - source: github://echavet/MitsubishiCN105ESPHome
