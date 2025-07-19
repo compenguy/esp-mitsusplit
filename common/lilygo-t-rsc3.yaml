@@ -6,6 +6,7 @@ substitutions:
   rs232_tx_pin: "GPIO00"
   rs232_rx_pin: "GPIO01"
   rs232_baud: "2400"
+  rs232_parity: EVEN
 
 esp32:
   board: esp32-c3-devkitm-1
@@ -19,10 +20,15 @@ light:
     pin: ${neopixel_pin}
     num_leds: ${neopixel_count}
     name: "Status LED"
+    restore_mode: RESTORE_AND_ON
+    color_correct: [75%, 100%, 100%]
 
 # https://github.com/echavet/MitsubishiCN105ESPHome
 uart:
   id: heatpump_uart
+  parity: ${rs232_parity}
   tx_pin: ${rs232_tx_pin}
   rx_pin: ${rs232_rx_pin}
   baud_rate: ${rs232_baud}
+  debug:
+    direction: BOTH
