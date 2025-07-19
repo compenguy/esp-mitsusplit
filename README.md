@@ -28,7 +28,10 @@ Check the pin number markings on the minisplit control board carefully. The pin 
 4. TX (from the minisplit's perspective)
 5. RX (from the minisplit's perspective)
 
-Be very careful about the handling of the 12V DC line - most microcontrollers don't tolerate that for a supply voltage but the LilyGo T-RS*3 boards do. It's also important to note that the LilyGo T-RSS3 _will not_ run off 5V - its minimum input voltage requirement is _7V_, so it _must_ be supplied by the 12V DC line.
+Be very careful about the handling of the 12V DC line - most microcontrollers don't tolerate that for a supply voltage but the LilyGo T-RS*3 boards do.
+
+The 5V DC line on my unit only supplies ~4.9V, which isn't enough to run either of the LilyGo-TRS*3 models
+(5V hard requirement for the T-RSC3, and 7V minimum for the T-RSS3), so they _must_ be supplied by the 12V DC line.
 
 Additional references and photos for the wiring can be found on other minisplit hacking sites:
 * https://nicegear.nz/blog/hacking-a-mitsubishi-heat-pump-air-conditioner/ (the OG hacker)
