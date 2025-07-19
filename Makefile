@@ -5,10 +5,14 @@ SERIAL_DEV=/dev/ttyACM0
 SERIAL_ARG=$(if $(wildcard SERIAL_DEV), --device $(SERIAL_DEV))
 
 .PHONY: all
-all: upload
+all: run
+
+.PHONY: run
+run: $(CONFIG) $(INCLUDES)
+	esphome run $(SERIAL_ARG) $(CONFIG)
 
 .PHONY: upload
-upload: $(CONFIG) $(INCLUDES) | compile
+upload: $(CONFIG) $(INCLUDES)
 	esphome upload $(SERIAL_ARG) $(CONFIG)
 
 .PHONY: compile
