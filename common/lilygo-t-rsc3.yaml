@@ -3,8 +3,8 @@ substitutions:
   neopixel_model: "WS2812"
   neopixel_order: "GRB"
   neopixel_count: "1"
-  rs232_tx_pin: "GPIO00"
-  rs232_rx_pin: "GPIO01"
+  rs232_tx_pin: "GPIO07"
+  rs232_rx_pin: "GPIO06"
   rs232_baud: "2400"
   rs232_parity: EVEN
 
