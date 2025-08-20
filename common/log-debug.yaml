@@ -1,0 +1,20 @@
+logger:
+  level: DEBUG
+  logs:
+    EVT_SETS: DEBUG
+    WIFI: INFO
+    MQTT: INFO
+    WRITE_SETTINGS: DEBUG
+    SETTINGS: DEBUG
+    STATUS: INFO
+    CN105Climate: WARN
+    CN105: DEBUG
+    climate: WARN
+    sensor: WARN
+    chkSum: INFO
+    WRITE: WARN
+    READ: WARN
+    CYCLE: WARN
+    Header: INFO
+    Decoder: DEBUG
+    CONTROL_WANTED_SETTINGS: DEBUG

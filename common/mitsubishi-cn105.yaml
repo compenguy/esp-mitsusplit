@@ -1,45 +1,5 @@
 # https://github.com/echavet/MitsubishiCN105ESPHome
 
-logger:
-  level: INFO
-  logs:
-    EVT_SETS: INFO
-    WIFI: INFO
-    MQTT: INFO
-    WRITE_SETTINGS: INFO
-    SETTINGS: INFO
-    STATUS: INFO
-    CN105Climate: WARN
-    CN105: INFO
-    climate: WARN
-    sensor: WARN
-    chkSum: INFO
-    WRITE: WARN
-    READ: WARN
-    Header: INFO
-    Decoder: INFO
-    CONTROL_WANTED_SETTINGS: INFO
-
-# Swap the above settings with these debug settings for development or troubleshooting
-#  level: DEBUG
-#  logs:
-#    EVT_SETS : DEBUG
-#    WIFI : INFO
-#    MQTT : INFO
-#    WRITE_SETTINGS : DEBUG
-#    SETTINGS : DEBUG
-#    STATUS : INFO
-#    CN105Climate: WARN
-#    CN105: DEBUG
-#    climate: WARN
-#    sensor: WARN
-#    chkSum : INFO
-#    WRITE : WARN
-#    READ : WARN
-#    Header: INFO
-#    Decoder : DEBUG
-#    CONTROL_WANTED_SETTINGS: DEBUG
-
 sensor:
   - platform: homeassistant
     name: "Remote Temperature Sensor"

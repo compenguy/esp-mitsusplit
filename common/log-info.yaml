@@ -1,0 +1,21 @@
+logger:
+  level: INFO
+  logs:
+    EVT_SETS: INFO
+    WIFI: INFO
+    MQTT: INFO
+    WRITE_SETTINGS: INFO
+    SETTINGS: INFO
+    STATUS: INFO
+    CN105Climate: WARN
+    CN105: INFO
+    climate: WARN
+    sensor: WARN
+    chkSum: INFO
+    WRITE: WARN
+    READ: WARN
+    CYCLE: WARN
+    Header: INFO
+    Decoder: INFO
+    CONTROL_WANTED_SETTINGS: INFO
+

@@ -8,6 +8,7 @@ esphome:
   friendly_name: ${friendly_name}
 
 packages:
+  - !include common/log-warn.yaml
   - !include common/wifi.yaml
   - !include common/lilygo-t-rsc3.yaml
   - !include common/mitsubishi-cn105.yaml
