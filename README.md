@@ -7,14 +7,13 @@ This project owes everything to:
 ## Acquiring The Hardware
 
 * An ESPHome-compatible microcontroller, with a serial port
-  * I recommend the [LilyGo T-RSS3](https://lilygo.cc/products/t-rs-s3), based on the ESP32-S3 with an electrically-isolated 5V serial port
-  * The part I used, the [LilyGo T-RSC3](https://github.com/Xinyuan-LilyGO/T-RSC3), based on the ESP32-C3, is no longer available
+  * I used the [LilyGo T-RSC3](https://github.com/Xinyuan-LilyGO/T-RSC3), based on the ESP32-C3, is no longer available
+  * I do not recommend it, as it was not able to establish a stable serial communication over its TTL port
 * A CN105 connector cable
   * You can find these on AliExpress - search for `24AWG PA PAP-05V-S`
-* A serial port connector
-  * For debugging purposes I used a terminal-block adapter (called a `db9 conversion board` on AliExpress)
-  * For the finished cabling I used a soldered serial adapter in a permanent housing
-* If you're using a microcontroller that's only 3.3V tolerant, you'll need a [level shifter](https://github.com/SwiCago/HeatPump/blob/master/CN105_ESP8266.png)
+* A level shifter
+  * on the low voltage side, wired to a pair of UART-capable pins, along with the board's 3V3 and ground lines
+  * on the high voltage side, wired to the tx/rx lines, along with the heatpump's 5V and ground lines
 
 ## Wiring
 
@@ -30,7 +29,7 @@ Check the pin number markings on the minisplit control board carefully. The pin 
 
 Be very careful about the handling of the 12V DC line - most microcontrollers don't tolerate that for a supply voltage but the LilyGo T-RS*3 boards do.
 
-The 5V DC line on my unit only supplies ~4.9V, which isn't enough to run either of the LilyGo-TRS*3 models
+The 5V DC line on my heatpump only supplies ~4.9V, which isn't enough to run either of the LilyGo T-RS*3 models
 (5V hard requirement for the T-RSC3, and 7V minimum for the T-RSS3), so they _must_ be supplied by the 12V DC line.
 
 Additional references and photos for the wiring can be found on other minisplit hacking sites:
